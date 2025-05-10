@@ -73,7 +73,7 @@ const removeItem = async (id: number) => {
 <template>
   <Toast />
   <div class="portfolio-view">
-    <Button label="Добавить" @click="addNewRow" />
+    <Button label="Добавить" @click="addNewRow" size="small" />
   </div>
   <Table
     @removeItem="removeItem"

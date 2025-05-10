@@ -5,3 +5,24 @@ declare module '@tanstack/vue-table' {
     editable: boolean
   }
 }
+
+export interface ICompany {
+  name: string
+  description: string
+  contacts: IContacts
+}
+
+export interface IContacts {
+  address: string
+  mobilePhone: string
+  links: ILinks
+}
+
+export interface ILinks {
+  TELEGRAM: ITelegram[]
+}
+
+export interface ITelegram {
+  name: string
+  link: string
+}

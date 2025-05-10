@@ -209,7 +209,12 @@ const handleFileChange = async (
               v-else-if="cell.column.columnDef.meta?.editable === false"
             >
               <div :class="styles.spanWrapper">
-                <span>{{ cell.getValue() }}</span>
+                <span v-if="cell.column.id === 'id'">{{
+                  (cell.getValue() && (cell.getValue() as number) > 0
+                    ? cell.getValue()
+                    : '') || ''
+                }}</span>
+                <span v-else>{{ cell.getValue() }}</span>
               </div>
             </template>
 

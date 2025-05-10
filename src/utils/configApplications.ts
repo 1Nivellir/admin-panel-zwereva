@@ -18,7 +18,7 @@ const columnHelper = createColumnHelper<Applications>()
 export const configFofTable = [
   columnHelper.accessor('id', {
     header: () => 'ID',
-    cell: (info) => info.getValue(),
+    cell: (info) =>  info.getValue(),
 		size: 210,
     meta: {
       editable: false,
