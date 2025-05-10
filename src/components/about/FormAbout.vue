@@ -47,7 +47,7 @@ const disabledSave = computed(() => {
 </script>
 
 <template>
-  <div class="container">
+  <div>
     <h2 class="form-about__title">О компании</h2>
 
     <form class="form-about__form">

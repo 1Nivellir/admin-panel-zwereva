@@ -22,7 +22,6 @@ const data = ref<ICompany>({
 onMounted(async () => {
   try {
     const response = await useCustomFetch(API_COMPANY)
-    console.log(response.data)
     data.value = response.data
   } catch (err) {
     toast.add({

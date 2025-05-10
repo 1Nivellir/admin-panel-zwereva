@@ -64,7 +64,6 @@ const updateItem = async (item: Applications) => {
         data: rest,
       }
     )
-    console.log(response)
     list.value = response.data
     toast.add({
       severity: 'success',
