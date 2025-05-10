@@ -12,7 +12,6 @@ const counterStore = useRootStore()
 const fetchUpdateSite = async () => {
   try {
     const response = await useCustomFetch(API_APPLYMAINPAGE)
-    console.log(response)
     toast.add({
       severity: 'success',
       summary: 'Успешно',
