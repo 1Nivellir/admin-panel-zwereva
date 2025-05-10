@@ -50,7 +50,12 @@ const updateRow = async (row: IPortfolio, index: number) => {
     }
   }
 }
-const removeItem = async (id: number, index: number) => {
+const removeItem = async (id: number) => {
+  if (id < 0) {
+    list.value = list.value.filter((item: IPortfolio) => item.id !== id)
+    list.value = [...list.value]
+    return
+  }
   try {
     const response = await useCustomFetch(`${API_PORTFOLIO}/${id}`, {
       method: 'DELETE',

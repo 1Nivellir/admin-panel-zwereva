@@ -6,13 +6,18 @@ import Table from '@/components/table/Table.vue'
 import { useGetDataOnView } from '@/composables/useGetData'
 import { configFofTable, type Applications } from '@/utils/configApplications'
 import Pagination from '@/components/common/Pagination.vue'
-
+import { clone } from 'ramda'
 const currentPage = ref(1)
 const list = await useGetDataOnView(
   `${API_APPLICATIONS}/page/${currentPage.value}`
 )
 
 const removeItem = async (id: number) => {
+  if (id < 0) {
+    list.value = list.value.filter((item: Applications) => item.id !== id)
+    list.value = clone(list.value)
+    return
+  }
   try {
     const response = await useCustomFetch(
       `${API_APPLICATIONS}/page/${1}/${id}`,
@@ -45,7 +50,7 @@ const updateCurrentPage = async (page: number) => {
       :columns-config="(configFofTable as any)"
     />
     <Pagination
-      :total-pages="list.totalPages"
+      :total-pages="list.totalPages || 0"
       :current-page="currentPage"
       @update:current-page="updateCurrentPage"
     />
