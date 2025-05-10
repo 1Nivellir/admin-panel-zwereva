@@ -1,0 +1,8 @@
+export const API_PORTFOLIO = 'dashboard/portfolio'
+export const API_COMPANY = 'dashboard/company/info'
+export const API_AUTH = 'auth/signin'
+export const API_APPLICATIONS = 'dashboard/request'
+export const API_EMPLOYEE = 'dashboard/employee'
+export const API_LOADFILE = 'dashboard/file'
+export const API_APPLYMAINPAGE = 'dashboard/apply/mainpage'
+export const API_PRACTICE = 'dashboard/practice'

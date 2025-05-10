@@ -1,0 +1,44 @@
+body {
+	box-sizing: border-box;
+	font-family: 'Montserrat', sans-serif;
+	scroll-behavior: smooth;
+	overflow-x: scroll;
+}
+
+* {
+	border: 1px red;
+}
+.container {
+	margin: 0 auto;
+	max-width: 1540px;
+	width: 100%;
+	padding: 0 50px;
+
+	@media screen and (max-width: 1024px) {
+		padding: 0 40px;
+	}
+
+	@media screen and (max-width: 560px) {
+		padding: 0 15px;
+	}
+}
+
+.btn-reset {
+	border: none;
+	padding: 0;
+	background: transparent;
+	cursor: pointer;
+}
+
+.list-reset {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.section__title {
+	color: #000;
+	font-size: clamp(24px, 3.5vw,32px);
+	font-weight: 500;
+	margin-bottom: 30px;
+}
+
