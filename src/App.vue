@@ -11,6 +11,7 @@ const counterStore = useRootStore()
 
 onMounted(async () => {
   await counterStore.fetchVisits()
+  router.push('/auth')
 })
 </script>
 

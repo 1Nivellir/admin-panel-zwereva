@@ -6,7 +6,7 @@ const title = ref('My Component')
 import { Button, InputText } from 'primevue'
 
 const handleCLick = () => {
-  router.push('/')
+  router.push('/applications')
 }
 </script>
 

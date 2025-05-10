@@ -51,8 +51,8 @@ const fetchUpdateSite = async () => {
   justify-content: space-between;
   margin-bottom: 20px;
   &__value {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 20px;
+    font-weight: 500;
   }
 }
 </style>
