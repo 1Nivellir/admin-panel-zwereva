@@ -6,7 +6,7 @@ export interface IPortfolio {
   description: string
   show: boolean
   imageId: string
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 const columnHelper = createColumnHelper<IPortfolio>()
@@ -49,7 +49,7 @@ export const configFofTable = [
 	columnHelper.accessor('createdAt', {
     header: () => 'Дата',
 		size: 300,
-    cell: (info) => info.getValue(),
+    cell: (info) => info.getValue()?.toLocaleString() ?? '',
     meta: {
       editable: false,
     },

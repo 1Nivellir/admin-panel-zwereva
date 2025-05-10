@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
-import { useCustomFetch } from '@/composables/useCustomFetch'
 import { API_EMPLOYEE } from '@/utils/apiPath'
 import Table from '@/components/table/Table.vue'
 import { configFofTable, type IEmployee } from '@/utils/configEmployee'
@@ -8,9 +6,12 @@ import { useGetDataOnView } from '@/composables/useGetData'
 import Button from 'primevue/button'
 import { getUniqueId } from '@/utils/getUniqueId'
 import { clone } from 'ramda'
-import { useToast } from 'primevue/usetoast'
-const list = await useGetDataOnView(API_EMPLOYEE + '/all')
-const toast = useToast()
+import { useRemoveItem } from '@/composables/tableActions/useRemoveItem'
+import { useUpdateData } from '@/composables/tableActions/useUpdateData'
+
+const { list } = await useGetDataOnView<IEmployee>(API_EMPLOYEE + '/all')
+const { removeItem } = useRemoveItem(list, API_EMPLOYEE)
+const { updateData } = useUpdateData(list, API_EMPLOYEE)
 
 const addNewRow = () => {
   list.value.unshift({
@@ -23,57 +24,6 @@ const addNewRow = () => {
   })
   list.value = clone(list.value)
 }
-
-const getDataForSsave = async (params: IEmployee, index: number) => {
-  if (params.id < 0) {
-    const { id, createdAt, ...rest } = params
-    try {
-      const response = await useCustomFetch(API_EMPLOYEE, {
-        method: 'POST',
-        data: rest,
-      })
-      list.value[index] = response.data
-      list.value = clone(list.value)
-    } catch (error) {
-      console.log(error)
-      toast.add({
-        severity: 'error',
-        summary: 'Ошибка',
-        detail: error as string,
-      })
-    }
-  } else {
-    try {
-      const { id, createdAt, ...rest } = params
-      const response = await useCustomFetch(API_EMPLOYEE + '/' + id, {
-        method: 'PUT',
-        data: rest,
-      })
-      console.log(response)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-}
-
-const removeItem = async (id: number) => {
-  if (id < 0) {
-    list.value = list.value.filter((item: IEmployee) => item.id !== id)
-    list.value = clone(list.value)
-    return
-  }
-  try {
-    const response = await useCustomFetch(API_EMPLOYEE + '/' + id, {
-      method: 'DELETE',
-    })
-    if (response.data) {
-      list.value = list.value.filter((item: IEmployee) => item.id !== id)
-      list.value = clone(list.value)
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
 </script>
 
 <template>
@@ -82,8 +32,8 @@ const removeItem = async (id: number) => {
   </div>
   <Table
     @remove-item="removeItem"
-    @update-data="getDataForSsave"
-    :applications="(list as IEmployee[])"
+    @update-data="updateData"
+    :applications="list"
     :columns-config="(configFofTable as any)"
   />
 </template>

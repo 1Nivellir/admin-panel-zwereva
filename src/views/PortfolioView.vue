@@ -5,12 +5,14 @@ import Table from '@/components/table/Table.vue'
 import { configFofTable, type IPortfolio } from '@/utils/configPortfolio'
 import { useGetDataOnView } from '@/composables/useGetData'
 import Button from 'primevue/button'
-import { useCustomFetch } from '@/composables/useCustomFetch'
-import { useToast } from 'primevue/usetoast'
 import { getUniqueId } from '@/utils/getUniqueId'
-import Toast from 'primevue/toast'
+import { useRemoveItem } from '@/composables/tableActions/useRemoveItem'
+import { useUpdateData } from '@/composables/tableActions/useUpdateData'
+import { clone } from 'ramda'
 
-const list = await useGetDataOnView(API_PORTFOLIO)
+const { list } = await useGetDataOnView<IPortfolio>(API_PORTFOLIO)
+const { removeItem } = useRemoveItem(list, API_PORTFOLIO)
+const { updateData } = useUpdateData(list, API_PORTFOLIO)
 
 const addNewRow = () => {
   list.value.unshift({
@@ -20,64 +22,17 @@ const addNewRow = () => {
     show: false,
     imageId: '',
   })
-  list.value = [...list.value]
-}
-
-const updateRow = async (row: IPortfolio, index: number) => {
-  const { id, ...rest } = row
-  if (row.id < 0) {
-    try {
-      const response = await useCustomFetch(API_PORTFOLIO, {
-        method: 'POST',
-        data: rest,
-      })
-      list.value[index] = response.data
-      list.value = [...list.value]
-    } catch (error) {
-      console.log(error)
-    }
-  } else {
-    try {
-      const { id, createdAt, ...rest } = row
-      const response = await useCustomFetch(`${API_PORTFOLIO}/${id}`, {
-        method: 'PUT',
-        data: rest,
-      })
-      list.value[index] = response.data
-      list.value = [...list.value]
-    } catch (error) {
-      console.log(error)
-    }
-  }
-}
-const removeItem = async (id: number) => {
-  if (id < 0) {
-    list.value = list.value.filter((item: IPortfolio) => item.id !== id)
-    list.value = [...list.value]
-    return
-  }
-  try {
-    const response = await useCustomFetch(`${API_PORTFOLIO}/${id}`, {
-      method: 'DELETE',
-    })
-    if (response) {
-      list.value = list.value.filter((item: IPortfolio) => item.id !== id)
-      list.value = [...list.value]
-    }
-  } catch (error) {
-    console.log(error)
-  }
+  list.value = clone(list.value)
 }
 </script>
 
 <template>
-  <Toast />
   <div class="portfolio-view">
     <Button label="Добавить" @click="addNewRow" size="small" />
   </div>
   <Table
     @removeItem="removeItem"
-    @updateData="updateRow"
+    @updateData="updateData"
     :applications="(list as IPortfolio[])"
     :columns-config="(configFofTable as any)"
   />

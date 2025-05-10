@@ -5,7 +5,7 @@ export interface IPractice {
   name: string
   description: string
   show: boolean
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 const columnHelper = createColumnHelper<IPractice>()
@@ -43,7 +43,7 @@ export const configFofTable = [
 	columnHelper.accessor('createdAt', {
 		header: () => 'Дата',
 		size: 300,
-		cell: (info) => info.getValue(),
+		cell: (info) => info.getValue()?.toLocaleString() ?? '',
 		meta: {
 			editable: false,
 		},

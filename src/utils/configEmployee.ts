@@ -7,7 +7,7 @@ export interface IEmployee {
   imageId: string
   active: boolean
   deleted: boolean
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 const columnHelper = createColumnHelper<IEmployee>()
 
@@ -54,7 +54,7 @@ export const configFofTable = [
 	columnHelper.accessor('createdAt', {
 		header: () => 'Дата создания',
 		size: 300,
-		cell: (info) => info.getValue().toLocaleString(),
+		cell: (info) => info.getValue()?.toLocaleString() ?? '',
 		meta: {
 			editable: false,
 		},

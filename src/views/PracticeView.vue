@@ -6,63 +6,21 @@ import Table from '@/components/table/Table.vue'
 import Button from 'primevue/button'
 import { getUniqueId } from '@/utils/getUniqueId'
 import { clone } from 'ramda'
-import { useCustomFetch } from '@/composables/useCustomFetch'
-const list = await useGetDataOnView(API_PRACTICE + '/all')
+import { useRemoveItem } from '@/composables/tableActions/useRemoveItem'
+import { useUpdateData } from '@/composables/tableActions/useUpdateData'
+
+const { list } = await useGetDataOnView<IPractice>(API_PRACTICE + '/all')
+const { removeItem } = useRemoveItem(list, API_PRACTICE)
+const { updateData } = useUpdateData(list, API_PRACTICE)
 
 const addNewRow = () => {
   list.value.unshift({
     id: getUniqueId(list.value),
     name: '',
     description: '',
+    show: false,
   })
   list.value = clone(list.value)
-}
-
-const removeItem = async (id: number) => {
-  if (id < 0) {
-    list.value = list.value.filter((item: IPractice) => item.id !== id)
-    list.value = clone(list.value)
-    return
-  }
-  try {
-    const response = await useCustomFetch(API_PRACTICE + '/' + id, {
-      method: 'DELETE',
-    })
-    if (response.data) {
-      list.value = list.value.filter((item: IPractice) => item.id !== id)
-      list.value = clone(list.value)
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const updateData = async (data: IPractice, index: number) => {
-  const { id, ...rest } = data
-  if (data.id < 0) {
-    try {
-      const response = await useCustomFetch(API_PRACTICE, {
-        method: 'POST',
-        data: rest,
-      })
-      list.value[index] = response.data
-      list.value = [...list.value]
-    } catch (error) {
-      console.log(error)
-    }
-  } else {
-    try {
-      const { id, createdAt, ...rest } = data
-      const response = await useCustomFetch(`${API_PRACTICE}/${id}`, {
-        method: 'PUT',
-        data: rest,
-      })
-      list.value[index] = response.data
-      list.value = [...list.value]
-    } catch (error) {
-      console.log(error)
-    }
-  }
 }
 </script>
 

@@ -1,9 +1,9 @@
 import { ref, onMounted } from "vue";
 
 import { useCustomFetch } from '@/composables/useCustomFetch'
-export const useGetDataOnView = async (path: string) => {
-
-	const list = ref<any>([])
+export const useGetDataOnView = async <T>(path: string) => {
+	const list = ref<T[]>([])
+	
 	onMounted(async () => {
 		try {
 			const response = await useCustomFetch(path)
@@ -13,5 +13,5 @@ export const useGetDataOnView = async (path: string) => {
 		}
 	})
 
-	return list
+	return {list}
 }
