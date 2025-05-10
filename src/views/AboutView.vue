@@ -3,11 +3,9 @@ import { onMounted, ref } from 'vue'
 import { useCustomFetch } from '@/composables/useCustomFetch'
 import { API_COMPANY } from '@/utils/apiPath'
 
-const { myfetch } = useCustomFetch()
-
 onMounted(async () => {
   try {
-    const response = await myfetch(API_COMPANY)
+    const response = await useCustomFetch(API_COMPANY)
     console.log(response)
   } catch (error) {
     console.error(error)
