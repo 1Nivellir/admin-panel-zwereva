@@ -31,7 +31,7 @@ onMounted(async () => {
     toast.add({
       severity: 'error',
       summary: 'Ошибка',
-      detail: 'Не удалось загрузить данные',
+      detail: err,
       life: 7000,
     })
   }

@@ -23,7 +23,7 @@ const fetchUpdateSite = async () => {
       severity: 'error',
       summary: 'Ошибка',
       detail: error,
-      life: 3000,
+      life: 7000,
     })
   }
 }
