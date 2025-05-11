@@ -11,7 +11,7 @@
           :key="key"
           class="modal-edit-table__form-label"
         >
-          {{ NameHeader[key as keyof typeof NameHeader] }}
+          {{ TitleNames[key as keyof typeof TitleNames] }}
           <TableUploadImage
             v-if="key === 'imageId'"
             v-model:idImage="form[key]"
@@ -45,7 +45,7 @@
             class="modal-edit-table__form-input"
             :label="key"
             v-model="form[key]"
-            :placeholder="NameHeader[key as keyof typeof NameHeader]"
+            :placeholder="TitleNames[key as keyof typeof TitleNames]"
             size="small"
           />
         </label>
@@ -65,7 +65,7 @@
 import { InputText, Textarea, Button } from 'primevue'
 import { ref, watch, computed } from 'vue'
 import TableUploadImage from '../table/TableUploadImage.vue'
-import { NameHeader } from '@/utils/const/nameHeader'
+import { TitleNames } from '@/utils/const/nameHeader'
 import ToggleButton from 'primevue/togglebutton'
 import { equals } from 'ramda'
 const props = defineProps<{

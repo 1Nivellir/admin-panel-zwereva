@@ -1,5 +1,5 @@
 import { createColumnHelper } from '@tanstack/vue-table'
-import { NameHeader } from '@/utils/const/nameHeader'
+import { TitleNames } from '@/utils/const/nameHeader'
 export interface Applications {
   id?: number
   processed: boolean
@@ -28,7 +28,7 @@ export const columnVisibility = {
 
 export const configFofTable = [
   columnHelper.accessor('id', {
-    header: () => NameHeader.id,
+    header: () => TitleNames.id,
     cell: (info) =>  info.getValue(),
 		size: 210,
     meta: {
@@ -36,12 +36,12 @@ export const configFofTable = [
     },
   }),
   columnHelper.accessor('processed', {
-    header: () => NameHeader.processed,
+    header: () => TitleNames.processed,
 		size: 300,
     cell: (info) => info.getValue(),
   }),
 	columnHelper.accessor('description', {
-    header: () => NameHeader.description,
+    header: () => TitleNames.description,
 		size: 300,
     cell: (info) => info.getValue(),
     meta: {
@@ -49,7 +49,7 @@ export const configFofTable = [
     },
   }),
 	columnHelper.accessor('name', {
-    header: () => NameHeader.name,
+    header: () => TitleNames.name,
 		size: 300,
     cell: (info) => info.getValue(),
     meta: {
@@ -57,7 +57,7 @@ export const configFofTable = [
     },
   }),
 	columnHelper.accessor('lastName', {
-    header: () => NameHeader.lastName,
+    header: () => TitleNames.lastName,
 		size: 300,
     cell: (info) => info.getValue(),
     meta: {
@@ -65,7 +65,7 @@ export const configFofTable = [
     },
   }),
 	columnHelper.accessor('mobileNumber', {
-    header: () => NameHeader.mobileNumber,
+    header: () => TitleNames.mobileNumber,
 		size: 300,
     cell: (info) => info.getValue(),
     meta: {
@@ -73,7 +73,7 @@ export const configFofTable = [
     },
   }),
 	columnHelper.accessor('email', {
-    header: () => NameHeader.email,
+    header: () => TitleNames.email,
 		size: 300,
     cell: (info) => info.getValue(),
     meta: {
@@ -81,7 +81,7 @@ export const configFofTable = [
     },
   }),
 	columnHelper.accessor('email', {
-    header: () => NameHeader.email,
+    header: () => TitleNames.email,
 		size: 300,
     cell: (info) => info.getValue(),
     meta: {
@@ -89,7 +89,7 @@ export const configFofTable = [
     },
   }),
   columnHelper.accessor('createdAt', {
-    header: () => NameHeader.createdAt,
+    header: () => TitleNames.createdAt,
 		size: 300,
     cell: (info) => info.getValue()?.toLocaleString(), 
     meta: {
@@ -97,7 +97,7 @@ export const configFofTable = [
     },
   }),
 	columnHelper.accessor('deleted', {
-    header: () => NameHeader.deleted,
+    header: () => TitleNames.deleted,
 		size: 300,
     cell: (info) => info.getValue(), 
     meta: {

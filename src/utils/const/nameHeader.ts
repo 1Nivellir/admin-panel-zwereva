@@ -1,4 +1,4 @@
-export enum NameHeader {
+export enum TitleNames {
   id = 'ID',
   createdAt = 'Дата',
   show = 'Показывать',
@@ -12,5 +12,4 @@ export enum NameHeader {
   mobileNumber = 'Телефон',
   email = 'Email',
 	jobTitle = 'Должность',
-
 }

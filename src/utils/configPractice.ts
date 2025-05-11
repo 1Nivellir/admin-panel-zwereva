@@ -1,5 +1,5 @@
 import { createColumnHelper } from '@tanstack/vue-table'
-import { NameHeader } from '@/utils/const/nameHeader'
+import { TitleNames } from '@/utils/const/nameHeader'
 export interface IPractice {
   id: number
   name: string
@@ -19,7 +19,7 @@ export const columnsVisible = {
 }
 export const configFofTable = [
 	columnHelper.accessor('id', {
-		header: () => NameHeader.id,
+		header: () => TitleNames.id,
 		cell: (info) => info.getValue(),
 		size: 210,
 		meta: {
@@ -27,7 +27,7 @@ export const configFofTable = [
 		},	
 	}),
 	columnHelper.accessor('name', {
-		header: () => NameHeader.name,
+		header: () => TitleNames.name,
 		size: 300,
 		cell: (info) => info.getValue(),
 		meta: {
@@ -35,7 +35,7 @@ export const configFofTable = [
 		},
 	}),
 	columnHelper.accessor('description', {
-		header: () => NameHeader.description,
+		header: () => TitleNames.description,
 		size: 300,
 		cell: (info) => info.getValue(),
 		meta: {
@@ -43,7 +43,7 @@ export const configFofTable = [
 		},
 	}),
 	columnHelper.accessor('createdAt', {
-		header: () => NameHeader.createdAt,
+		header: () => TitleNames.createdAt,
 		size: 300,
 		cell: (info) => info.getValue()?.toLocaleString() ?? '',
 		meta: {

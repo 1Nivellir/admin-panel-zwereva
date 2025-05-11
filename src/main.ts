@@ -8,6 +8,8 @@ import router from './router'
 import PrimeVue from 'primevue/config';
 import Lara from '@primeuix/themes/lara';
 import { definePreset } from '@primeuix/themes'
+
+import Tooltip from 'primevue/tooltip';
 const app = createApp(App)
 app.use(createPinia())
 app.use(router)
@@ -39,4 +41,5 @@ app.use(PrimeVue, {
 	}    
 });
 
+app.directive('tooltip', Tooltip);
 app.mount('#app')

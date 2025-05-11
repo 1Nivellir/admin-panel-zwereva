@@ -1,5 +1,5 @@
 import { createColumnHelper } from '@tanstack/vue-table'
-import { NameHeader } from '@/utils/const/nameHeader'
+import { TitleNames } from '@/utils/const/nameHeader'
 export interface IEmployee {
   id: number
   name: string
@@ -22,7 +22,7 @@ export const columnsVisible = {
 }
 export const configFofTable = [
 	columnHelper.accessor('id', {
-		header: () => NameHeader.id,
+		header: () => TitleNames.id,
 		cell: (info) => info.getValue(),
 		size: 210,
 		meta: {
@@ -30,7 +30,7 @@ export const configFofTable = [
 		},
 	}),
 	columnHelper.accessor('name', {
-		header: () => NameHeader.name,
+		header: () => TitleNames.name,
 		size: 300,
 		cell: (info) => info.getValue(),
 		meta: {
@@ -38,7 +38,7 @@ export const configFofTable = [
 		},
 	}),
 	columnHelper.accessor('jobTitle', {
-		header: () => NameHeader.jobTitle,
+		header: () => TitleNames.jobTitle,
 		size: 300,
 		cell: (info) => info.getValue(),
 		meta: {
@@ -46,22 +46,22 @@ export const configFofTable = [
 		},
 	}),
 	columnHelper.accessor('imageId', {
-		header: () => NameHeader.imageId,
+		header: () => TitleNames.imageId,
 		size: 300,
 		cell: (info) => info.getValue(),
 	}),
 	columnHelper.accessor('active', {
-		header: () => NameHeader.active,
+		header: () => TitleNames.active,
 		size: 300,
 		cell: (info) => info.getValue(),
 	}),
 	columnHelper.accessor('deleted', {
-		header: () => NameHeader.deleted,
+		header: () => TitleNames.deleted,
 		size: 300,
 		cell: (info) => info.getValue(),
 	}),
 	columnHelper.accessor('createdAt', {
-		header: () => NameHeader.createdAt,
+		header: () => TitleNames.createdAt,
 		size: 300,
 		cell: (info) => info.getValue()?.toLocaleString() ?? '',
 		meta: {

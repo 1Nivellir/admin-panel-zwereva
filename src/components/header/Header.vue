@@ -36,6 +36,7 @@ const logout = () => {
       <NavMenu v-else />
       <div class="header__right">
         <Button
+          v-tooltip="'Выйти'"
           @click="logout"
           icon="pi pi-sign-out"
           size="small"
