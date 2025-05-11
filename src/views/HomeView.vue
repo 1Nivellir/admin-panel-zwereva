@@ -39,7 +39,9 @@ const fetchUpdateSite = async () => {
   </div>
   <main>
     <div class="container">
-      <RouterView />
+      <Suspense>
+        <RouterView />
+      </Suspense>
     </div>
   </main>
 </template>
