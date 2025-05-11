@@ -120,7 +120,7 @@ const whenClickSave = () => {
 }
 
 .modal-edit-table__content {
-  width: 70%;
+  width: 90%;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
