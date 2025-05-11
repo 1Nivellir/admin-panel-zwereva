@@ -7,7 +7,7 @@ const emit = defineEmits(['close'])
 </script>
 
 <template>
-  <nav>
+  <nav class="nav-menu">
     <ul class="list-reset list" :class="$attrs.class">
       <li
         class="list-item"

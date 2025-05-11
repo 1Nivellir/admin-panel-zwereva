@@ -26,7 +26,7 @@ const handleCLick = () => {
           name="Login"
         />
         <InputText placeholder="Password" type="text" />
-        <Button @click="handleCLick">Отправить</Button>
+        <Button @click="handleCLick">Авторизоваться</Button>
       </form>
     </div>
   </div>

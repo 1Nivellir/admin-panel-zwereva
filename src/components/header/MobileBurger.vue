@@ -39,8 +39,8 @@ const isOpen = ref(false)
 
 .mobile-burger__button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 30px;
+  right: 20px;
 
   &:focus {
     outline: none;
