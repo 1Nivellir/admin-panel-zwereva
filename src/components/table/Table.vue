@@ -99,9 +99,6 @@ const table = useVueTable({
     minSize: 50, //enforced during column resizing
     maxSize: 500, //enforced during column resizing
   },
-  onColumnVisibilityChange: (column) => {
-    console.log(column)
-  },
   getRowId: (row) => row.id,
   initialState: {
     columnVisibility: props.columnVisibility,
@@ -192,8 +189,8 @@ const handleRowClick = (row: T, index: number) => {
                   class="toggle-button"
                   size="small"
                   v-model="row.original[cell.column.id]"
-                  onLabel="+"
-                  offLabel="-"
+                  onLabel="Да"
+                  offLabel="Нет"
                 />
               </div>
             </template>
@@ -205,12 +202,12 @@ const handleRowClick = (row: T, index: number) => {
               "
             >
               <div :class="styles.spanWrapper">
-                <span v-if="cell.column.id === 'id'">{{
+                <span v-if="cell.column.id === 'id'" class="text-center">{{
                   (cell.getValue() && (cell.getValue() as number) > 0
                     ? cell.getValue()
                     : '') || ''
                 }}</span>
-                <span v-else>{{ cell.getValue() }}</span>
+                <span v-else class="text-center">{{ cell.getValue() }}</span>
               </div>
             </template>
 
@@ -255,13 +252,16 @@ const handleRowClick = (row: T, index: number) => {
 
 <style scoped lang="scss">
 .toggle-button {
-  width: 34px;
   height: 29px;
   padding: 3px 12px;
 }
 .id-cell {
   display: block;
   min-width: 50px;
+}
+.text-center {
+  display: flex;
+  align-items: center;
 }
 tbody {
   border-bottom: 1px solid lightgray;

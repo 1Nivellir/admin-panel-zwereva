@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted, ref, computed, onUnmounted } from 'vue'
 import { useCustomFetch } from '@/composables/useCustomFetch'
-import { API_COMPANY } from '@/utils/apiPath'
+import { API_COMPANY, API_LINKS } from '@/utils/apiPath'
 import FormAbout from '@/components/about/FormAbout.vue'
 import type { ICompany } from '@/types/app'
 import { clone } from 'ramda'
@@ -21,8 +21,12 @@ const data = ref<ICompany>({
 
 onMounted(async () => {
   try {
-    const response = await useCustomFetch(API_COMPANY)
-    data.value = response.data
+    const [responseLinks, responseCompany] = await Promise.all([
+      useCustomFetch(API_LINKS),
+      useCustomFetch(API_COMPANY),
+    ])
+    data.value = responseCompany.data
+    console.log(responseLinks)
   } catch (err) {
     toast.add({
       severity: 'error',
