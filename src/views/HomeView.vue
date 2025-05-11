@@ -39,9 +39,9 @@ const fetchUpdateSite = async () => {
   </div>
   <main>
     <div class="container">
-      <router-view v-slot="{ Component }">
+      <router-view v-slot="{ Component, route }">
         <transition name="fade" mode="out-in" appear>
-          <component :is="Component" />
+          <component :is="Component" :key="route.path" />
         </transition>
       </router-view>
     </div>
