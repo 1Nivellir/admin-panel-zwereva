@@ -2,9 +2,12 @@ import { ref } from 'vue';
 import axios from 'axios';
 import type { AxiosRequestConfig } from 'axios';
 import { getCookie } from '@/utils/cookies'
+import { useRouter } from 'vue-router'
+
 export const API_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJpZCI6MSwibG9naW4iOiJseHdxVlFNN3hEIiwic3ViIjoibHh3cVZRTTd4RCIsImlhdCI6MTc0Njg2Njk4MSwiZXhwIjoxNzQ3MDEwOTgxfQ.0SPLGZjgqnTiaY2vtXMkgnIyXBxs07IimTo21TXPAa8'
 const BASE_URL = 'https://zvereva-law.ru/';
 
+const router = useRouter()
 
 // Создаем экземпляр axios с базовыми настройками
 const axiosInstance = axios.create({
@@ -22,6 +25,17 @@ axiosInstance.interceptors.request.use((config) => {
   }
   return config
 })
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 403) {
+      router.push('/auth')
+    }
+    return Promise.reject(error)
+  }
+)
+
 export const useCustomFetch = async (url: string,
   options: AxiosRequestConfig = {}) => {
   return axiosInstance({
