@@ -12,7 +12,7 @@ import { useCheckResize } from '@/composables/useCheckResize'
 import { columnsVisible } from '@/utils/configPractice'
 
 const { isMobile } = useCheckResize()
-const { list } = await useGetDataOnView<IPractice>(API_PRACTICE + '/all')
+const { list } = useGetDataOnView<IPractice>(API_PRACTICE + '/all')
 const { removeItem } = useRemoveItem(list, API_PRACTICE)
 const { updateData } = useUpdateData(list, API_PRACTICE)
 
@@ -28,17 +28,19 @@ const addNewRow = () => {
 </script>
 
 <template>
-  <div class="button-container">
-    <Button @click="addNewRow" size="small" label="Добавить" />
+  <div>
+    <div class="button-container">
+      <Button @click="addNewRow" size="small" label="Добавить" />
+    </div>
+    <Table
+      :column-visibility="!isMobile ? undefined : columnsVisible"
+      :editable="!isMobile"
+      @remove-item="removeItem"
+      @update-data="updateData"
+      :applications="(list as IPractice[])"
+      :columns-config="(configFofTable as any)"
+    />
   </div>
-  <Table
-    :column-visibility="!isMobile ? undefined : columnsVisible"
-    :editable="!isMobile"
-    @remove-item="removeItem"
-    @update-data="updateData"
-    :applications="(list as IPractice[])"
-    :columns-config="(configFofTable as any)"
-  />
 </template>
 
 <style scoped lang="scss">

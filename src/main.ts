@@ -38,4 +38,5 @@ app.use(PrimeVue, {
 		}
 	}    
 });
+await router.isReady()
 app.mount('#app')

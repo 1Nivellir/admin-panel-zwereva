@@ -39,14 +39,16 @@ const fetchUpdateSite = async () => {
   </div>
   <main>
     <div class="container">
-      <Suspense>
-        <RouterView />
-      </Suspense>
+      <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in" appear>
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </div>
   </main>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .visits-counter {
   display: flex;
   align-items: center;
@@ -56,5 +58,14 @@ const fetchUpdateSite = async () => {
     font-size: 20px;
     font-weight: 500;
   }
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

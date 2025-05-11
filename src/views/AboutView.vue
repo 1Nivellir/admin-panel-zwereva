@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref, computed, onUnmounted } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { useCustomFetch } from '@/composables/useCustomFetch'
 import { API_COMPANY, API_LINKS } from '@/utils/apiPath'
 import FormAbout from '@/components/about/FormAbout.vue'
@@ -66,7 +66,9 @@ const save = async (formData: ICompany) => {
 </script>
 
 <template>
-  <FormAbout :data="getData" @save="save" />
+  <div>
+    <FormAbout :data="getData" @save="save" />
+  </div>
 </template>
 
 <style scoped lang="scss">
