@@ -24,7 +24,7 @@ const {
     />
     <Pagination
       :total-pages="totalPages || 0"
-      :current-page="currentPage"
+      v-model:current-page="currentPage"
       @update:current-page="changePageForPagination"
     />
   </div>

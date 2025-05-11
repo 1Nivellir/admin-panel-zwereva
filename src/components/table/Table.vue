@@ -18,25 +18,20 @@ type Writable<T> = {
   -readonly [K in keyof T]: T[K]
 }
 
-const imagesUrls = ref<Record<string, string>>({})
-
-const getImageUrl = (imageId: string) => {
-  return imagesUrls.value[imageId]
-}
-const emit = defineEmits(['updateData', 'removeItem'])
+const imagesUrls = ref<Record<string, string>>({}),
+  props = defineProps<{
+    applications: T[]
+    columnsConfig?: ColumnDef<T>[]
+  }>(),
+  emit = defineEmits(['updateData', 'removeItem']),
+  localData = ref<Writable<T>[]>(clone(props.applications)) as Ref<
+    Writable<T>[]
+  >,
+  columnHelper = createColumnHelper<T>()
 
 const removeItem = (id: number, index: number) => {
   emit('removeItem', id, index)
 }
-
-const props = defineProps<{
-  applications: T[]
-  columnsConfig?: ColumnDef<T>[]
-}>()
-
-const localData = ref<Writable<T>[]>(clone(props.applications)) as Ref<
-  Writable<T>[]
->
 
 const getShowSaveButton = (index: number) => {
   const oldValue = { ...props.applications[index] }
@@ -68,8 +63,6 @@ watch(
     }
   }
 )
-
-const columnHelper = createColumnHelper<T>()
 
 const columns = computed(() => {
   if (props.columnsConfig) return props.columnsConfig

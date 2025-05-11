@@ -4,7 +4,7 @@ defineProps<{
   currentPage: number
 }>()
 const emit = defineEmits<{
-  (e: 'update:currentPage', page: number): void
+  'update:currentPage': [number]
 }>()
 const handlePageChange = (page: number) => {
   emit('update:currentPage', page)

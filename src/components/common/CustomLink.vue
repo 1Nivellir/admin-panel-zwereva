@@ -15,6 +15,8 @@ defineProps<{
 
 <style scoped lang="scss">
 .link {
+  display: block;
+  max-width: max-content;
   text-decoration: none;
   background: #eae9e9;
   border-radius: 7px;
