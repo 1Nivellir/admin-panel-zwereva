@@ -34,22 +34,12 @@ const fetchUpdateSite = async () => {
     })
   }
 }
-
-const showToast = () => {
-  toast.add({
-    severity: 'error',
-    summary: 'Информация',
-    detail: 'Это тестовое сообщение',
-  })
-}
 </script>
 
 <template>
   <Header />
   <div class="visits-counter container">
     <Button label="Применить изменения" size="small" @click="fetchUpdateSite" />
-
-    <Button label="Показать тост" size="small" @click="showToast" />
     <span class="visits-counter__value"
       >Посещений: {{ counterStore.visits }}</span
     >
