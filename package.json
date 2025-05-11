@@ -13,7 +13,9 @@
   "dependencies": {
     "@primeuix/themes": "^1.1.0",
     "@tanstack/vue-table": "^8.21.3",
+    "@types/js-cookie": "^3.0.6",
     "axios": "^1.9.0",
+    "js-cookie": "^3.0.5",
     "pinia": "^3.0.1",
     "primeicons": "^7.0.0",
     "primevue": "^4.3.3",

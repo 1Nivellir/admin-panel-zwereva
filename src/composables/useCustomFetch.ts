@@ -1,8 +1,8 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import type { AxiosRequestConfig } from 'axios';
-
-const API_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJpZCI6MSwibG9naW4iOiJseHdxVlFNN3hEIiwic3ViIjoibHh3cVZRTTd4RCIsImlhdCI6MTc0Njg2Njk4MSwiZXhwIjoxNzQ3MDEwOTgxfQ.0SPLGZjgqnTiaY2vtXMkgnIyXBxs07IimTo21TXPAa8'
+import { getCookie } from '@/utils/cookies'
+export const API_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJpZCI6MSwibG9naW4iOiJseHdxVlFNN3hEIiwic3ViIjoibHh3cVZRTTd4RCIsImlhdCI6MTc0Njg2Njk4MSwiZXhwIjoxNzQ3MDEwOTgxfQ.0SPLGZjgqnTiaY2vtXMkgnIyXBxs07IimTo21TXPAa8'
 const BASE_URL = 'https://zvereva-law.ru/';
 
 
@@ -12,13 +12,18 @@ const axiosInstance = axios.create({
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${API_TOKEN}`
   }
 });
 
+axiosInstance.interceptors.request.use((config) => {
+  const token = getCookie('token')
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`
+  }
+  return config
+})
 export const useCustomFetch = async (url: string,
   options: AxiosRequestConfig = {}) => {
-
   return axiosInstance({
     url,
     ...options,

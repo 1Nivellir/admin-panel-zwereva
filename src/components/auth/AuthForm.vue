@@ -1,12 +1,16 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { API_TOKEN } from '@/composables/useCustomFetch'
+import { setCookie } from '@/utils/cookies'
+import { nextTick } from 'vue'
 const router = useRouter()
-const title = ref('My Component')
 import { Button, InputText } from 'primevue'
 
 const handleCLick = () => {
-  router.push('/applications')
+  setCookie('token', API_TOKEN)
+  nextTick(() => {
+    router.push('/applications')
+  })
 }
 </script>
 
