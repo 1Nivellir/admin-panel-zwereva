@@ -1,0 +1,16 @@
+export enum NameHeader {
+  id = 'ID',
+  createdAt = 'Дата',
+  show = 'Показывать',
+  deleted = 'Удален',
+  active = 'Активный',
+  processed = 'Обработан',
+  imageId = 'Изображение',
+  name = 'Имя',
+  description = 'Описание',
+  lastName = 'Фамилия',
+  mobileNumber = 'Телефон',
+  email = 'Email',
+	jobTitle = 'Должность',
+
+}

@@ -1,5 +1,5 @@
 import { createColumnHelper } from '@tanstack/vue-table'
-
+import { NameHeader } from '@/utils/const/nameHeader'
 export interface IEmployee {
   id: number
   name: string
@@ -11,9 +11,18 @@ export interface IEmployee {
 }
 const columnHelper = createColumnHelper<IEmployee>()
 
+export const columnsVisible = {
+  id: false,
+  name: true,
+	jobTitle: true,
+	imageId: false,
+  active: false,
+  deleted: false,
+  createdAt: false,
+}
 export const configFofTable = [
 	columnHelper.accessor('id', {
-		header: () => 'ID',
+		header: () => NameHeader.id,
 		cell: (info) => info.getValue(),
 		size: 210,
 		meta: {
@@ -21,7 +30,7 @@ export const configFofTable = [
 		},
 	}),
 	columnHelper.accessor('name', {
-		header: () => 'Название',
+		header: () => NameHeader.name,
 		size: 300,
 		cell: (info) => info.getValue(),
 		meta: {
@@ -29,7 +38,7 @@ export const configFofTable = [
 		},
 	}),
 	columnHelper.accessor('jobTitle', {
-		header: () => 'Должность',
+		header: () => NameHeader.jobTitle,
 		size: 300,
 		cell: (info) => info.getValue(),
 		meta: {
@@ -37,22 +46,22 @@ export const configFofTable = [
 		},
 	}),
 	columnHelper.accessor('imageId', {
-		header: () => 'Фото',
+		header: () => NameHeader.imageId,
 		size: 300,
 		cell: (info) => info.getValue(),
 	}),
 	columnHelper.accessor('active', {
-		header: () => 'Работает',
+		header: () => NameHeader.active,
 		size: 300,
 		cell: (info) => info.getValue(),
 	}),
 	columnHelper.accessor('deleted', {
-		header: () => 'Уволен',
+		header: () => NameHeader.deleted,
 		size: 300,
 		cell: (info) => info.getValue(),
 	}),
 	columnHelper.accessor('createdAt', {
-		header: () => 'Дата создания',
+		header: () => NameHeader.createdAt,
 		size: 300,
 		cell: (info) => info.getValue()?.toLocaleString() ?? '',
 		meta: {

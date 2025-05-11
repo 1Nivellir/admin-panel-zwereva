@@ -6,13 +6,15 @@ import {
   createColumnHelper,
 } from '@tanstack/vue-table'
 import { fetchImageBlob } from '@/utils/getImageForBlob'
-import { ref, computed, watch, type Ref, readonly } from 'vue'
+import { ref, computed, watch, type Ref } from 'vue'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { Button } from 'primevue'
 import styles from './table.module.css'
 import ToggleButton from 'primevue/togglebutton'
 import { equals, clone } from 'ramda'
 import { useCustomFetch } from '@/composables/useCustomFetch'
+import ModalEditTable from '@/components/common/ModalEditTable.vue'
+import TableUploadImage from '@/components/table/TableUploadImage.vue'
 
 type Writable<T> = {
   -readonly [K in keyof T]: T[K]
@@ -22,12 +24,19 @@ const imagesUrls = ref<Record<string, string>>({}),
   props = defineProps<{
     applications: T[]
     columnsConfig?: ColumnDef<T>[]
+    columnVisibility?: Record<string, boolean> | undefined
+    editable?: boolean
   }>(),
   emit = defineEmits(['updateData', 'removeItem']),
   localData = ref<Writable<T>[]>(clone(props.applications)) as Ref<
     Writable<T>[]
   >,
-  columnHelper = createColumnHelper<T>()
+  columnHelper = createColumnHelper<T>(),
+  editRowInModal = ref({
+    editRowInModal: {} as any,
+    index: 0,
+  }),
+  isOpenModal = ref(false)
 
 const removeItem = (id: number, index: number) => {
   emit('removeItem', id, index)
@@ -90,6 +99,13 @@ const table = useVueTable({
     minSize: 50, //enforced during column resizing
     maxSize: 500, //enforced during column resizing
   },
+  onColumnVisibilityChange: (column) => {
+    console.log(column)
+  },
+  getRowId: (row) => row.id,
+  initialState: {
+    columnVisibility: props.columnVisibility,
+  },
 })
 
 const whenChangeInput = (value: string, rowIndex: number, columnId: string) => {
@@ -106,28 +122,11 @@ const getHeightDefaultTextArea = (params: any) => {
   el.style.height = '50px'
 }
 
-// watch(imagesUrls.value, (newValue) => {
-//   console.log(newValue)
-// })
-const handleFileChange = async (
-  event: Event,
-  rowIndex: number,
-  columnId: string
-) => {
-  const file = (event.target as HTMLInputElement).files?.[0]
-  try {
-    const response = await useCustomFetch('dashboard/file', {
-      method: 'POST',
-      data: file,
-    })
-    const imageId = response.data.uuid
-    const url = (await fetchImageBlob(imageId)) as string
-
-    imagesUrls.value[imageId] = url
-    ;(localData.value[rowIndex][columnId] as any) = imageId
-    localData.value = clone(localData.value)
-  } catch (error) {
-    console.log(error)
+const handleRowClick = (row: T, index: number) => {
+  if (!props.editable) {
+    editRowInModal.value.editRowInModal = row
+    editRowInModal.value.index = index
+    isOpenModal.value = true
   }
 }
 </script>
@@ -154,9 +153,10 @@ const handleFileChange = async (
       </thead>
       <tbody>
         <tr
-          v-for="row in table.getRowModel().rows"
+          v-for="(row, index) in table.getRowModel().rows"
           :key="row.id"
           :class="styles.row"
+          @click="handleRowClick(row.original, row.index)"
         >
           <td v-for="cell in row.getVisibleCells()" :key="cell.id">
             <template v-if="cell.column.id === 'actions'">
@@ -199,7 +199,10 @@ const handleFileChange = async (
             </template>
 
             <template
-              v-else-if="cell.column.columnDef.meta?.editable === false"
+              v-else-if="
+                cell.column.columnDef.meta?.editable === false ||
+                !props.editable
+              "
             >
               <div :class="styles.spanWrapper">
                 <span v-if="cell.column.id === 'id'">{{
@@ -212,23 +215,9 @@ const handleFileChange = async (
             </template>
 
             <template v-else-if="cell.column.id === 'imageId'">
-              <div class="image-upload-container">
-                <img
-                  class="image"
-                  :src="imagesUrls[cell.getValue() as string] || '/img/noImage.png'"
-                />
-                <label class="custom-file-upload">
-                  <input
-                    type="file"
-                    name="images"
-                    class="file-input"
-                    @change="
-                      (e) => handleFileChange(e, row.index, cell.column.id)
-                    "
-                  />
-                  <i class="pi pi-upload"></i>
-                </label>
-              </div>
+              <TableUploadImage
+                v-model:idImage="localData[row.index][cell.column.id]"
+              />
             </template>
 
             <template v-else>
@@ -255,6 +244,12 @@ const handleFileChange = async (
         </tr>
       </tbody>
     </table>
+    <ModalEditTable
+      :row="editRowInModal.editRowInModal"
+      v-model:isOpen="isOpenModal"
+      v-if="isOpenModal"
+      @saveData="emit('updateData', $event, editRowInModal.index)"
+    />
   </div>
 </template>
 
@@ -264,15 +259,10 @@ const handleFileChange = async (
   height: 29px;
   padding: 3px 12px;
 }
-.fileUpload {
-  appearance: none;
+.id-cell {
+  display: block;
+  min-width: 50px;
 }
-
-.image {
-  width: 40px;
-  height: 40px;
-}
-
 tbody {
   border-bottom: 1px solid lightgray;
 }
@@ -292,32 +282,5 @@ tfoot {
 
 tfoot th {
   font-weight: normal;
-}
-
-.image-upload-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.custom-file-upload {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  background-color: #f3f4f6;
-  cursor: pointer;
-  transition: background-color 0.2s;
-
-  .file-input {
-    display: none;
-  }
-
-  i {
-    font-size: 16px;
-    color: #4b5563;
-  }
 }
 </style>

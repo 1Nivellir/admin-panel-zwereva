@@ -1,9 +1,14 @@
 <script lang="ts" setup>
 import Table from '@/components/table/Table.vue'
-import { configFofTable, type Applications } from '@/utils/configApplications'
+import {
+  configFofTable,
+  type Applications,
+  columnVisibility,
+} from '@/utils/configApplications'
 import Pagination from '@/components/common/Pagination.vue'
 import { useApplicationsView } from '@/composables/useApplicationsView'
-
+import { useCheckResize } from '@/composables/useCheckResize'
+const { isMobile } = useCheckResize()
 const {
   list,
   currentPage,
@@ -17,6 +22,8 @@ const {
 <template>
   <div class="applications-view">
     <Table
+      :column-visibility="!isMobile ? undefined : columnVisibility"
+      :editable="!isMobile"
       @update-data="updateItem"
       @remove-item="removeItem"
       :applications="list"

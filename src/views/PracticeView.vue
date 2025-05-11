@@ -8,7 +8,10 @@ import { getUniqueId } from '@/utils/getUniqueId'
 import { clone } from 'ramda'
 import { useRemoveItem } from '@/composables/tableActions/useRemoveItem'
 import { useUpdateData } from '@/composables/tableActions/useUpdateData'
+import { useCheckResize } from '@/composables/useCheckResize'
+import { columnsVisible } from '@/utils/configPractice'
 
+const { isMobile } = useCheckResize()
 const { list } = await useGetDataOnView<IPractice>(API_PRACTICE + '/all')
 const { removeItem } = useRemoveItem(list, API_PRACTICE)
 const { updateData } = useUpdateData(list, API_PRACTICE)
@@ -29,6 +32,8 @@ const addNewRow = () => {
     <Button @click="addNewRow" size="small" label="Добавить" />
   </div>
   <Table
+    :column-visibility="!isMobile ? undefined : columnsVisible"
+    :editable="!isMobile"
     @remove-item="removeItem"
     @update-data="updateData"
     :applications="(list as IPractice[])"

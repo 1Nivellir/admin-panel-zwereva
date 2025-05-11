@@ -1,5 +1,5 @@
 import { createColumnHelper } from '@tanstack/vue-table'
-
+import { NameHeader } from '@/utils/const/nameHeader'
 export interface Applications {
   id?: number
   processed: boolean
@@ -14,10 +14,21 @@ export interface Applications {
 
 const columnHelper = createColumnHelper<Applications>()
 
+export const columnVisibility = {
+  id: false,
+  processed: false, 
+  description: true,
+  name: true,
+  lastName: false,
+  mobileNumber: false,
+  email: false,
+  createdAt: false,
+  deleted: false,
+}
 
 export const configFofTable = [
   columnHelper.accessor('id', {
-    header: () => 'ID',
+    header: () => NameHeader.id,
     cell: (info) =>  info.getValue(),
 		size: 210,
     meta: {
@@ -25,12 +36,12 @@ export const configFofTable = [
     },
   }),
   columnHelper.accessor('processed', {
-    header: () => 'Статус',
+    header: () => NameHeader.processed,
 		size: 300,
     cell: (info) => info.getValue(),
   }),
 	columnHelper.accessor('description', {
-    header: () => 'Описание',
+    header: () => NameHeader.description,
 		size: 300,
     cell: (info) => info.getValue(),
     meta: {
@@ -38,7 +49,7 @@ export const configFofTable = [
     },
   }),
 	columnHelper.accessor('name', {
-    header: () => 'Имя',
+    header: () => NameHeader.name,
 		size: 300,
     cell: (info) => info.getValue(),
     meta: {
@@ -46,7 +57,7 @@ export const configFofTable = [
     },
   }),
 	columnHelper.accessor('lastName', {
-    header: () => 'Фамилия',
+    header: () => NameHeader.lastName,
 		size: 300,
     cell: (info) => info.getValue(),
     meta: {
@@ -54,7 +65,7 @@ export const configFofTable = [
     },
   }),
 	columnHelper.accessor('mobileNumber', {
-    header: () => 'Номер',
+    header: () => NameHeader.mobileNumber,
 		size: 300,
     cell: (info) => info.getValue(),
     meta: {
@@ -62,7 +73,7 @@ export const configFofTable = [
     },
   }),
 	columnHelper.accessor('email', {
-    header: () => 'Почта',
+    header: () => NameHeader.email,
 		size: 300,
     cell: (info) => info.getValue(),
     meta: {
@@ -70,7 +81,7 @@ export const configFofTable = [
     },
   }),
 	columnHelper.accessor('email', {
-    header: () => 'Почта',
+    header: () => NameHeader.email,
 		size: 300,
     cell: (info) => info.getValue(),
     meta: {
@@ -78,7 +89,7 @@ export const configFofTable = [
     },
   }),
   columnHelper.accessor('createdAt', {
-    header: () => 'Дата',
+    header: () => NameHeader.createdAt,
 		size: 300,
     cell: (info) => info.getValue()?.toLocaleString(), 
     meta: {
@@ -86,7 +97,7 @@ export const configFofTable = [
     },
   }),
 	columnHelper.accessor('deleted', {
-    header: () => 'Удалено',
+    header: () => NameHeader.deleted,
 		size: 300,
     cell: (info) => info.getValue(), 
     meta: {

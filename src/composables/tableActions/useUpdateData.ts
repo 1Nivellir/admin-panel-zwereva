@@ -29,7 +29,9 @@ export const useUpdateData = <T extends { id: number, createdAt?: Date | string 
 					method: 'PUT',
 					data: rest,
 				})
-				console.log(response)
+				list.value[index] = response.data
+				list.value = clone(list.value)
+				console.log(list.value)
 			} catch (error) {
 				console.log(error)
 			}

@@ -1,5 +1,5 @@
 import { createColumnHelper } from '@tanstack/vue-table'
-
+import { NameHeader } from '@/utils/const/nameHeader' 
 export interface IPortfolio {
   id: number
   name: string
@@ -11,9 +11,18 @@ export interface IPortfolio {
 
 const columnHelper = createColumnHelper<IPortfolio>()
 
+export const columnsVisible = {
+  id: false,
+  name: true,
+  description: true,
+  show: false,
+  imageId: false,
+  createdAt: false,
+}
+
 export const configFofTable = [
   columnHelper.accessor('id', {
-    header: () => 'ID',
+    header: () => NameHeader.id,
     cell: (info) => info.getValue(),
 		size: 210,
     meta: {
@@ -21,7 +30,7 @@ export const configFofTable = [
     },
   }),
   columnHelper.accessor('name', {
-    header: () => 'Название',
+    header: () => NameHeader.name,
 		size: 300,
     cell: (info) => info.getValue(),
     meta: {
@@ -29,7 +38,7 @@ export const configFofTable = [
     },
   }),
 	columnHelper.accessor('description', {
-    header: () => 'Описание',
+    header: () => NameHeader.description,
 		size: 300,
     cell: (info) => info.getValue(),
     meta: {
@@ -37,17 +46,17 @@ export const configFofTable = [
     },
   }),
 	columnHelper.accessor('show', {
-    header: () => 'Видимость',
+    header: () => NameHeader.show,
 		size: 300,
     cell: (info) => info.getValue(),
   }),
 	columnHelper.accessor('imageId', {
-    header: () => 'Изображение',
+    header: () => NameHeader.imageId,
 		size: 300,
     cell: (info) => info.getValue(),
   }),
 	columnHelper.accessor('createdAt', {
-    header: () => 'Дата',
+    header: () => NameHeader.createdAt,
 		size: 300,
     cell: (info) => info.getValue()?.toLocaleString() ?? '',
     meta: {

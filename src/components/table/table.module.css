@@ -46,6 +46,7 @@ table {
 }
 
 .spanWrapper {
+	min-height: 50px;
 	display: flex;
 }
 
