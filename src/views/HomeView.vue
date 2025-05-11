@@ -1,14 +1,21 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { RouterView, useRouter } from 'vue-router'
 import Header from '@/components/header/Header.vue'
 import { useRootStore } from '@/stores/root'
 import Button from 'primevue/button'
 import { useCustomFetch } from '@/composables/useCustomFetch'
 import { API_APPLYMAINPAGE } from '@/utils/apiPath'
 import { useToast } from 'primevue/usetoast'
+import { onMounted } from 'vue'
+const router = useRouter()
 const toast = useToast()
 const counterStore = useRootStore()
 
+onMounted(() => {
+  if (router.currentRoute.value.path === '/') {
+    router.push('/applications')
+  }
+})
 const fetchUpdateSite = async () => {
   try {
     const response = await useCustomFetch(API_APPLYMAINPAGE)
