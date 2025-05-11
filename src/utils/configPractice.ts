@@ -42,11 +42,6 @@ export const configFofTable = [
 			editable: true,
 		},
 	}),
-	columnHelper.accessor('show', {
-		header: () => NameHeader.show,
-		size: 300,
-		cell: (info) => info.getValue(),
-	}),
 	columnHelper.accessor('createdAt', {
 		header: () => NameHeader.createdAt,
 		size: 300,
