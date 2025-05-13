@@ -45,8 +45,7 @@ const {
 .applications-view {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  height: 78vh;
+  height: 75vh;
 
   &__table {
     flex-grow: 1;

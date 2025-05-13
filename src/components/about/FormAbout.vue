@@ -75,6 +75,21 @@ const saveSocialLink = (item: ISocial, type: 'TELEGRAM' | 'WHATSAPP') => {
   emit('saveSocial', item.link, type)
 }
 
+const removeSocialLink = (
+  item: ISocial,
+  type: 'TELEGRAM' | 'WHATSAPP',
+  index: number
+) => {
+  const el = props.socialData[type as keyof ILinks]?.find(
+    (i) => i.link === item.link
+  )
+  if (el) {
+    emit('removeSocial', item.link, type)
+  } else {
+    socialData.value[type]?.splice(index, 1)
+  }
+}
+
 const addSocialLink = (type: 'TELEGRAM' | 'WHATSAPP') => {
   socialData.value[type]?.push({
     link: '',
@@ -179,7 +194,7 @@ const addSocialLink = (type: 'TELEGRAM' | 'WHATSAPP') => {
                   severity="secondary"
                   v-tooltip.top="'Удалить'"
                   class="remove-button"
-                  @click="emit('removeSocial', item.link, 'TELEGRAM')"
+                  @click="removeSocialLink(item, 'TELEGRAM', index)"
                 />
               </InputGroupAddon>
               <Button
@@ -211,7 +226,7 @@ const addSocialLink = (type: 'TELEGRAM' | 'WHATSAPP') => {
                   severity="secondary"
                   v-tooltip.top="'Удалить'"
                   class="remove-button"
-                  @click="emit('removeSocial', item.link, 'WHATSAPP')"
+                  @click="removeSocialLink(item, 'WHATSAPP', index)"
                 />
               </InputGroupAddon>
               <Button
