@@ -95,6 +95,16 @@ const addSocialLink = (type: 'TELEGRAM' | 'WHATSAPP') => {
     link: '',
   })
 }
+
+const getDisabledInput = (item: ISocial, type: 'TELEGRAM' | 'WHATSAPP') => {
+  const el = props.socialData[type as keyof ILinks]?.find(
+    (i) => i.link === item.link
+  )
+  if (el) {
+    return true
+  }
+  return false
+}
 </script>
 
 <template>
@@ -181,9 +191,9 @@ const addSocialLink = (type: 'TELEGRAM' | 'WHATSAPP') => {
             >
               <FloatLabel variant="on">
                 <InputText
+                  :disabled="getDisabledInput(item, 'TELEGRAM')"
                   class="form-about__form-item"
                   v-model="item.link"
-                  icon="pi pi-sort-down-fill"
                 />
                 <label for="on_label">Telegram</label>
               </FloatLabel>
@@ -210,7 +220,11 @@ const addSocialLink = (type: 'TELEGRAM' | 'WHATSAPP') => {
               :key="index"
             >
               <FloatLabel variant="on">
-                <InputText class="form-about__form-item" v-model="item.link" />
+                <InputText
+                  :disabled="getDisabledInput(item, 'WHATSAPP')"
+                  class="form-about__form-item"
+                  v-model="item.link"
+                />
                 <label for="on_label">Whatsapp</label>
               </FloatLabel>
 
