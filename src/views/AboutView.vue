@@ -87,6 +87,12 @@ const saveSocialLinks = async (
       },
     })
     socialData.value = response.data
+    toast.add({
+      severity: 'success',
+      summary: 'Успешно',
+      detail: 'Ссылка успешно добавлена',
+      life: 3000,
+    })
   } catch (error) {
     toast.add({
       severity: 'error',
@@ -106,8 +112,13 @@ const removeSocialLinks = async (
       method: 'DELETE',
       data: { link: formData, type: key },
     })
-    console.log(response.data)
     socialData.value = response.data
+    toast.add({
+      severity: 'success',
+      summary: 'Успешно',
+      detail: 'Ссылка успешно удалена',
+      life: 3000,
+    })
   } catch (error) {
     toast.add({
       severity: 'error',
