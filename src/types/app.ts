@@ -15,14 +15,14 @@ export interface ICompany {
 export interface IContacts {
   address: string
   mobilePhone: string
-  links: ILinks
+  links?: ILinks
 }
 
 export interface ILinks {
-  TELEGRAM: ITelegram[]
+  TELEGRAM?: ISocial[]
+  WHATSAPP?: ISocial[]
 }
 
-export interface ITelegram {
-  name: string
+export interface ISocial {
   link: string
 }

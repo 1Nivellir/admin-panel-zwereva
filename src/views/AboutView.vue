@@ -3,21 +3,23 @@ import { onMounted, ref, computed } from 'vue'
 import { useCustomFetch } from '@/composables/useCustomFetch'
 import { API_COMPANY, API_LINKS } from '@/utils/apiPath'
 import FormAbout from '@/components/about/FormAbout.vue'
-import type { ICompany } from '@/types/app'
+import type { ICompany, ISocial, ILinks } from '@/types/app'
 import { clone } from 'ramda'
 import { useToast } from 'primevue/usetoast'
-const toast = useToast()
-const data = ref<ICompany>({
-  name: '',
-  description: '',
-  contacts: {
-    address: '',
-    mobilePhone: '',
-    links: {
-      TELEGRAM: [],
+const toast = useToast(),
+  data = ref<ICompany>({
+    name: '',
+    description: '',
+    contacts: {
+      address: '',
+      mobilePhone: '',
+      links: {
+        TELEGRAM: [],
+        WHATSAPP: [],
+      },
     },
-  },
-})
+  }),
+  socialData = ref<ILinks>({} as ILinks)
 
 onMounted(async () => {
   try {
@@ -25,8 +27,11 @@ onMounted(async () => {
       useCustomFetch(API_LINKS),
       useCustomFetch(API_COMPANY),
     ])
+    if (responseCompany.data.contacts.links) {
+      delete responseCompany.data.contacts.links
+    }
     data.value = responseCompany.data
-    console.log(responseLinks)
+    socialData.value = responseLinks.data
   } catch (err) {
     toast.add({
       severity: 'error',
@@ -35,6 +40,10 @@ onMounted(async () => {
       life: 7000,
     })
   }
+})
+
+const getSocialData = computed(() => {
+  return socialData.value
 })
 
 const getData = computed(() => {
@@ -63,11 +72,62 @@ const save = async (formData: ICompany) => {
     })
   }
 }
+
+const saveSocialLinks = async (
+  formData: string,
+  key: 'TELEGRAM' | 'WHATSAPP'
+) => {
+  try {
+    const response = await useCustomFetch(API_LINKS, {
+      method: 'PUT',
+      data: {
+        type: key,
+        link: formData,
+        name: ' ',
+      },
+    })
+    socialData.value = response.data
+  } catch (error) {
+    toast.add({
+      severity: 'error',
+      summary: 'Ошибка',
+      detail: error,
+      life: 7000,
+    })
+  }
+}
+
+const removeSocialLinks = async (
+  formData: string,
+  key: 'TELEGRAM' | 'WHATSAPP'
+) => {
+  try {
+    const response = await useCustomFetch(API_LINKS, {
+      method: 'DELETE',
+      data: { link: formData, type: key },
+    })
+    console.log(response.data)
+    socialData.value = response.data
+  } catch (error) {
+    toast.add({
+      severity: 'error',
+      summary: 'Ошибка',
+      detail: error,
+      life: 7000,
+    })
+  }
+}
 </script>
 
 <template>
   <div>
-    <FormAbout :data="getData" @save="save" />
+    <FormAbout
+      :socialData="getSocialData"
+      :data="getData"
+      @save="save"
+      @saveSocial="saveSocialLinks"
+      @removeSocial="removeSocialLinks"
+    />
   </div>
 </template>
 

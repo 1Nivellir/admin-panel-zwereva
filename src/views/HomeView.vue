@@ -44,7 +44,7 @@ const fetchUpdateSite = async () => {
       >Посещений: {{ counterStore.visits }}</span
     >
   </div>
-  <main>
+  <main class="main">
     <div class="container">
       <router-view v-slot="{ Component, route }">
         <transition name="fade" mode="out-in" appear>
@@ -56,6 +56,9 @@ const fetchUpdateSite = async () => {
 </template>
 
 <style lang="scss">
+.main {
+  padding-bottom: 50px;
+}
 .visits-counter {
   display: flex;
   align-items: center;

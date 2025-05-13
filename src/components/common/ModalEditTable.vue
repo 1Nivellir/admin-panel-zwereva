@@ -120,6 +120,7 @@ const whenClickSave = () => {
 }
 
 .modal-edit-table__content {
+  overflow-y: auto;
   width: 90%;
   background-color: #fff;
   padding: 20px;
