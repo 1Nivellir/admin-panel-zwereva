@@ -45,12 +45,12 @@ const {
 .applications-view {
   display: flex;
   flex-direction: column;
-  height: 75vh;
 
   &__table {
     flex-grow: 1;
     padding-bottom: 16px;
     overflow-y: auto;
+    min-height: 590px;
   }
 }
 </style>
