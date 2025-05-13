@@ -5,6 +5,7 @@ import {
   useVueTable,
   createColumnHelper,
 } from '@tanstack/vue-table'
+import { centerTextVertically } from '@/directives/centerText'
 import { fetchImageBlob } from '@/utils/getImageForBlob'
 import { ref, computed, watch, type Ref } from 'vue'
 import type { ColumnDef } from '@tanstack/vue-table'
@@ -105,17 +106,36 @@ const table = useVueTable({
   },
 })
 
-const whenChangeInput = (value: string, rowIndex: number, columnId: string) => {
+const whenChangeInput = (
+  value: string,
+  rowIndex: number,
+  columnId: string,
+  event: Event
+) => {
   ;(localData.value[rowIndex][columnId] as any) = value
+  getHeightTextArea(event)
 }
 
 const getHeightTextArea = (params: any) => {
   const el = params.target
   const height = el.scrollHeight
-  el.style.height = height > 50 ? height + 'px' : '50px'
+
+  if (height <= 50) {
+    el.style.paddingTop = '14px'
+  } else {
+    el.style.paddingTop = '0px'
+  }
+  el.style.height = height > 50 ? height + 'px' : '"20px"'
 }
+
 const getHeightDefaultTextArea = (params: any) => {
   const el = params.target
+  const height = el.scrollHeight
+  if (height <= 50) {
+    el.style.paddingTop = '14px'
+  } else {
+    el.style.paddingTop = '0px'
+  }
   el.style.height = '50px'
 }
 
@@ -244,6 +264,7 @@ const getWidthTextArea = (columnId: string) => {
                 :style="getWidthTextArea(cell.column.id)"
               >
                 <textarea
+                  v-center-text
                   @focus="(e) => getHeightTextArea(e)"
                   @focusout="(e) => getHeightDefaultTextArea(e)"
                   :class="styles.input_table"
@@ -252,7 +273,8 @@ const getWidthTextArea = (columnId: string) => {
                     whenChangeInput(
                       ($event?.target as HTMLInputElement)?.value,
                       row.index,
-                      cell.column.id
+                      cell.column.id,
+                      $event
                     )
                   "
                 />

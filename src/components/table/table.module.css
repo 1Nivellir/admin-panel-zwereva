@@ -18,8 +18,10 @@
   background: transparent;
   width: 100%;
   height: 50px;
+	padding-top: 14px;
 	resize: none;
 	overflow: hidden;
+	vertical-align: middle;
 }
 
 .input_table:focus {
@@ -43,6 +45,9 @@ table {
 
 .textAreaWrapper {
 	display: flex;
+	min-height: 50px;
+	align-items: center;
+	width: 100%;
 }
 
 .spanWrapper {
