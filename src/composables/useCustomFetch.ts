@@ -2,7 +2,6 @@ import axios from 'axios';
 import type { AxiosRequestConfig } from 'axios';
 import { getCookie } from '@/utils/cookies'
 import router from '@/router';
-
 const BASE_URL = 'https://zvereva-law.ru/';
 
 const axiosInstance = axios.create({
@@ -26,6 +25,11 @@ axiosInstance.interceptors.response.use(
  (error) => {
     if (error.response?.status === 403) {
         router.push('/auth')
+    }
+
+    if (error.message === 'Network Error') {
+     
+      router.push('/auth')
     }
     return Promise.reject(error)
   }

@@ -79,7 +79,7 @@ const saveSocialLinks = async (
 ) => {
   try {
     const response = await useCustomFetch(API_LINKS, {
-      method: 'PUT',
+      method: 'POST',
       data: {
         type: key,
         link: formData,
