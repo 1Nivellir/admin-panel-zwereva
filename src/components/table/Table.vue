@@ -126,12 +126,32 @@ const handleRowClick = (row: T, index: number) => {
     isOpenModal.value = true
   }
 }
+
+const getWidthTextArea = (columnId: string) => {
+  if (!props.editable) {
+    return {}
+  }
+  switch (columnId) {
+    case 'description':
+      return { width: '300px' }
+    case 'name':
+      return { width: '100px' }
+    case 'lastName':
+      return { width: '130px' }
+    case 'mobileNumber':
+      return { width: '130px' }
+    case 'email':
+      return { width: '130px' }
+    default:
+      return {}
+  }
+}
 </script>
 
 <template>
-  <div class="p-2">
+  <div>
     <table>
-      <thead>
+      <thead class="table-header">
         <tr
           v-for="headerGroup in table.getHeaderGroups()"
           :key="headerGroup.id"
@@ -220,7 +240,8 @@ const handleRowClick = (row: T, index: number) => {
             <template v-else>
               <div
                 :title="(cell.getValue() as string)"
-                :class="styles.textAreaWrapper"
+                :class="[styles.textAreaWrapper]"
+                :style="getWidthTextArea(cell.column.id)"
               >
                 <textarea
                   @focus="(e) => getHeightTextArea(e)"
@@ -251,6 +272,13 @@ const handleRowClick = (row: T, index: number) => {
 </template>
 
 <style scoped lang="scss">
+.table-header {
+  height: 40px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #f0f0f0;
+}
 .toggle-button {
   height: 29px;
   padding: 3px 12px;
@@ -262,11 +290,15 @@ const handleRowClick = (row: T, index: number) => {
 .text-center {
   display: flex;
   align-items: center;
+  text-overflow: ellipsis;
 }
 tbody {
   border-bottom: 1px solid lightgray;
 }
 
+table {
+  width: 100%;
+}
 th {
   text-align: start;
   border-bottom: 1px solid lightgray;

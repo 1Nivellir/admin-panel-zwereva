@@ -80,26 +80,10 @@ export const configFofTable = [
       editable: true,
     },
   }),
-	columnHelper.accessor('email', {
-    header: () => TitleNames.email,
-		size: 300,
-    cell: (info) => info.getValue(),
-    meta: {
-      editable: true,
-    },
-  }),
   columnHelper.accessor('createdAt', {
     header: () => TitleNames.createdAt,
 		size: 300,
     cell: (info) => info.getValue()?.toLocaleString(), 
-    meta: {
-      editable: false,
-    },
-  }),
-	columnHelper.accessor('deleted', {
-    header: () => TitleNames.deleted,
-		size: 300,
-    cell: (info) => info.getValue(), 
     meta: {
       editable: false,
     },

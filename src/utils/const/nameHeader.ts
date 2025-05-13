@@ -1,6 +1,6 @@
 export enum TitleNames {
   id = 'ID',
-  createdAt = 'Дата',
+  createdAt = 'Дата создания',
   show = 'Показывать',
   deleted = 'Удален',
   active = 'Активный',

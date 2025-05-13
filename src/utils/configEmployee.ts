@@ -55,11 +55,6 @@ export const configFofTable = [
 		size: 300,
 		cell: (info) => info.getValue(),
 	}),
-	columnHelper.accessor('deleted', {
-		header: () => TitleNames.deleted,
-		size: 300,
-		cell: (info) => info.getValue(),
-	}),
 	columnHelper.accessor('createdAt', {
 		header: () => TitleNames.createdAt,
 		size: 300,

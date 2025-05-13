@@ -50,6 +50,11 @@ const logout = () => {
 <style scoped lang="scss">
 .header {
   padding: 20px 0;
+  padding-top: 40px;
+
+  @media (max-width: 992px) {
+    padding-top: 20px;
+  }
 }
 
 .header-left {

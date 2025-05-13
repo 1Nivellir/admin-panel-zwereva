@@ -48,8 +48,11 @@ table {
 .spanWrapper {
 	min-height: 50px;
 	display: flex;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .toggleButtonWrapper {
 	padding: 0 10px;
+	width: 100px;
 }
