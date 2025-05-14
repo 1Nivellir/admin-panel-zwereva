@@ -12,6 +12,7 @@ export interface Applications {
   deleted: boolean
 }
 
+export const keyOrder: (keyof Applications)[] = ['id', 'processed', 'description', 'name', 'lastName', 'mobileNumber', 'email', 'createdAt']
 const columnHelper = createColumnHelper<Applications>()
 
 export const columnVisibility = {

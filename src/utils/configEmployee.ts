@@ -11,6 +11,7 @@ export interface IEmployee {
 }
 const columnHelper = createColumnHelper<IEmployee>()
 
+export const keyOrder: (keyof IEmployee)[] = ['id', 'name', 'jobTitle', 'imageId', 'active', 'createdAt']
 export const columnsVisible = {
   id: false,
   name: true,

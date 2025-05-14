@@ -10,9 +10,9 @@ import { useRemoveItem } from '@/composables/tableActions/useRemoveItem'
 import { useUpdateData } from '@/composables/tableActions/useUpdateData'
 import { useCheckResize } from '@/composables/useCheckResize'
 import { columnsVisible } from '@/utils/configPractice'
-
+import { keyOrder } from '@/utils/configPractice'
 const { isMobile } = useCheckResize()
-const { list } = useGetDataOnView<IPractice>(API_PRACTICE + '/all')
+const { list } = useGetDataOnView<IPractice>(API_PRACTICE + '/all', keyOrder)
 const { removeItem } = useRemoveItem(list, API_PRACTICE)
 const { updateData } = useUpdateData(list, API_PRACTICE)
 

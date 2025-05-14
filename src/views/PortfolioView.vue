@@ -14,9 +14,9 @@ import { useRemoveItem } from '@/composables/tableActions/useRemoveItem'
 import { useUpdateData } from '@/composables/tableActions/useUpdateData'
 import { clone } from 'ramda'
 import { useCheckResize } from '@/composables/useCheckResize'
-
+import { keyOrder } from '@/utils/configPortfolio'
 const { isMobile } = useCheckResize()
-const { list } = useGetDataOnView<IPortfolio>(API_PORTFOLIO)
+const { list } = useGetDataOnView<IPortfolio>(API_PORTFOLIO, keyOrder)
 const { removeItem } = useRemoveItem(list, API_PORTFOLIO)
 const { updateData } = useUpdateData(list, API_PORTFOLIO)
 

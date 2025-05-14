@@ -10,6 +10,7 @@ export interface IPractice {
 
 const columnHelper = createColumnHelper<IPractice>()
 
+export const keyOrder: (keyof IPractice)[] = ['id', 'name', 'description', 'createdAt']
 export const columnsVisible = {
   id: false,
   name: true,

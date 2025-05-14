@@ -12,10 +12,11 @@ import { getUniqueId } from '@/utils/getUniqueId'
 import { clone } from 'ramda'
 import { useRemoveItem } from '@/composables/tableActions/useRemoveItem'
 import { useUpdateData } from '@/composables/tableActions/useUpdateData'
-
+import { keyOrder } from '@/utils/configEmployee'
 import { useCheckResize } from '@/composables/useCheckResize'
+
 const { isMobile } = useCheckResize()
-const { list } = useGetDataOnView<IEmployee>(API_EMPLOYEE + '/all')
+const { list } = useGetDataOnView<IEmployee>(API_EMPLOYEE + '/all', keyOrder)
 const { removeItem } = useRemoveItem(list, API_EMPLOYEE)
 const { updateData } = useUpdateData(list, API_EMPLOYEE)
 

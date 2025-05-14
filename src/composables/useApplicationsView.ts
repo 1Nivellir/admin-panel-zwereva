@@ -1,5 +1,6 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import type { Applications } from '@/utils/configApplications'
+import { keyOrder } from '@/utils/configApplications'
 import { useCustomFetch } from '@/composables/useCustomFetch'
 import { API_APPLICATIONS } from '@/utils/apiPath'
 import { useToast } from 'primevue/usetoast'
@@ -14,12 +15,21 @@ export const useApplicationsView = () => {
 		await fetchApplications()
 	})
 
+	const sortHowInterface = <T>(listForSort: T[], keyOrder: (keyof Applications)[]) => {
+		return listForSort.map(item => {
+			const reorderef: Partial<T> ={}
+			for (const key of keyOrder) {
+				reorderef[key as keyof T] = item[key as keyof T]
+			}
+			return reorderef
+		})
+	}
   const fetchApplications = async () => {
 		try {
 			const response = await useCustomFetch(
 				`${API_APPLICATIONS}/page/${currentPage.value}`
 			)
-			list.value = response.data.elements
+			list.value = sortHowInterface(response.data.elements, keyOrder) as Applications[]
 			currentPage.value = response.data.currentPage
 			totalPages.value = response.data.totalPages
 		} catch (error) {

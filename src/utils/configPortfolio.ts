@@ -20,6 +20,7 @@ export const columnsVisible = {
   createdAt: false,
 }
 
+export const keyOrder: (keyof IPortfolio)[] = ['id', 'name', 'description', 'show', 'imageId', 'createdAt']
 export const configFofTable = [
   columnHelper.accessor('id', {
     header: () => TitleNames.id,
