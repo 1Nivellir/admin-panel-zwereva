@@ -39,7 +39,8 @@ const imagesUrls = ref<Record<string, string>>({}),
   }),
   isOpenModal = ref(false)
 
-const removeItem = (id: number, index: number) => {
+const removeItem = (e: Event, id: number, index: number) => {
+  e.stopPropagation()
   emit('removeItem', id, index)
 }
 
@@ -212,7 +213,7 @@ const getWidthTextArea = (columnId: string) => {
                   severity="secondary"
                   icon="pi pi-trash"
                   aria-label="Save"
-                  @click="removeItem(row.original.id, row.index)"
+                  @click="(e) => removeItem(e, row.original.id, row.index)"
                 />
               </div>
             </template>
