@@ -8,28 +8,47 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
+      meta: {
+        title: 'Home',
+      },
       children: [
         {
           path: '/applications',
           name: 'applications',
-          component: () => import('../views/ApplicationsView.vue')
+          component: () => import('../views/ApplicationsView.vue'),
+          meta: {
+            title: 'Заявки',
+          },
         },
         {
           path: '/portfolio',
           name: 'portfolio',
-          component: () => import('../views/PortfolioView.vue')
+          component: () => import('../views/PortfolioView.vue'),
+          meta: {
+            title: 'Портфолио',
+          },
         },{
           path: '/teams',
           name: 'teams',
-          component: () => import('../views/EmployeeView.vue')
-        },{
+          component: () => import('../views/EmployeeView.vue'),
+          meta: {
+            title: 'Сотрудники',
+          },
+        },
+        {
           path: '/about',
           name: 'about',
-          component: () => import('../views/AboutView.vue')
+          component: () => import('../views/AboutView.vue'),
+          meta: {
+            title: 'О нас',
+          },
         },{
           path: '/practice',
           name: 'practice',
-          component: () => import('../views/PracticeView.vue')
+          component: () => import('../views/PracticeView.vue'),
+          meta: {
+            title: 'Практика',
+          },
         },
 
       ]
@@ -37,6 +56,9 @@ const router = createRouter({
     {
       path: '/auth',
       name: 'auth',
+      meta: {
+        title: 'Авторизация',
+      },
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.

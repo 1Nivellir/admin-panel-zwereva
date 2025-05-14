@@ -3,7 +3,7 @@
     <Transition name="mobile-burger" mode="out-in">
       <div class="mobile-burger" v-if="isOpen">
         <button
-          class="mobile-burger__button btn-reset"
+          class="mobile-burger__button btn-reset mobile-burger__button-close"
           @click="isOpen = !isOpen"
         >
           <i class="pi pi-times"></i>
@@ -38,10 +38,6 @@ const isOpen = ref(false)
 }
 
 .mobile-burger__button {
-  position: absolute;
-  top: 30px;
-  right: 20px;
-
   &:focus {
     outline: none;
   }
@@ -49,8 +45,16 @@ const isOpen = ref(false)
   &:active {
     outline: none;
   }
+
+  @media (max-width: 992px) {
+    left: 20px;
+    top: 30px;
+  }
 }
 
+.mobile-burger__button-close {
+  margin-bottom: 10px;
+}
 .mobile-burger-enter-active,
 .mobile-burger-leave-active {
   transition: opacity 0.3s ease, transform 0.3s ease;

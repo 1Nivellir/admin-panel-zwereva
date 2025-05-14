@@ -41,7 +41,15 @@ app.use(PrimeVue, {
 		}
 	}    
 });
-
+router.beforeEach((to, from, next) => {
+	if (to.meta.title) {
+		document.title = to.meta.title as string
+		next()
+	} else {
+		document.title = 'Админ панель'
+		next()
+	}
+})
 app.directive('tooltip', Tooltip);
 app.directive('centerText', centerText)
 app.directive('keyfilter', KeyFilter);

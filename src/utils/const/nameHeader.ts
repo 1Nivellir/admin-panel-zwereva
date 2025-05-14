@@ -13,3 +13,13 @@ export enum TitleNames {
   email = 'Email',
 	jobTitle = 'Должность',
 }
+
+export const pageNames = {
+  applications: 'Заявки',
+  portfolio: 'Портфолио',
+  teams: 'Сотрудники',
+  about: 'О компании',
+  practice: 'Практика',
+  auth: 'Авторизация',
+  default: 'Админ панель',
+}
