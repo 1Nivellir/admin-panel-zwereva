@@ -194,6 +194,7 @@ const getDisabledInput = (item: ISocial, type: 'TELEGRAM' | 'WHATSAPP') => {
                   :disabled="getDisabledInput(item, 'TELEGRAM')"
                   class="form-about__form-item"
                   v-model="item.link"
+                  v-keyfilter.alphanum
                 />
                 <label for="on_label">Telegram</label>
               </FloatLabel>
@@ -224,6 +225,7 @@ const getDisabledInput = (item: ISocial, type: 'TELEGRAM' | 'WHATSAPP') => {
                   :disabled="getDisabledInput(item, 'WHATSAPP')"
                   class="form-about__form-item"
                   v-model="item.link"
+                  v-keyfilter.alphanum
                 />
                 <label for="on_label">Whatsapp</label>
               </FloatLabel>

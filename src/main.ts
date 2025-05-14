@@ -8,7 +8,7 @@ import router from './router'
 import PrimeVue from 'primevue/config';
 import Lara from '@primeuix/themes/lara';
 import { definePreset } from '@primeuix/themes'
-
+import KeyFilter from 'primevue/keyfilter';
 import Tooltip from 'primevue/tooltip';
 import centerText from './directives/centerText'
 const app = createApp(App)
@@ -44,4 +44,5 @@ app.use(PrimeVue, {
 
 app.directive('tooltip', Tooltip);
 app.directive('centerText', centerText)
+app.directive('keyfilter', KeyFilter);
 app.mount('#app')
