@@ -91,6 +91,9 @@ const removeSocialLink = (
 }
 
 const addSocialLink = (type: 'TELEGRAM' | 'WHATSAPP') => {
+  if (!socialData.value[type]) {
+    socialData.value[type] = []
+  }
   socialData.value[type]?.push({
     link: '',
   })
