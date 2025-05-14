@@ -9,6 +9,7 @@ import { clone, equals } from 'ramda'
 import Chip from 'primevue/chip'
 import InputGroup from 'primevue/inputgroup'
 import InputGroupAddon from 'primevue/inputgroupaddon'
+
 const props = defineProps<{
     data: ICompany
     socialData: ILinks
@@ -273,6 +274,9 @@ const getDisabledInput = (item: ISocial, type: 'TELEGRAM' | 'WHATSAPP') => {
   justify-content: flex-end;
   gap: 10px;
   width: 100%;
+}
+.form-about__form-item:disabled {
+  background-color: #eff6ff;
 }
 .divider {
   height: 1px;
