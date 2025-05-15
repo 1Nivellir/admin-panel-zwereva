@@ -38,6 +38,8 @@ const isOpen = ref(false)
 }
 
 .mobile-burger__button {
+  padding: 10px;
+  padding-left: 0;
   &:focus {
     outline: none;
   }
